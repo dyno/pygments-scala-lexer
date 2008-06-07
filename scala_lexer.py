@@ -27,7 +27,7 @@ class ScalaLexer(RegexLexer):
             r'yield)\b', Keyword),
            (r'(def)(\s+)([^\s\b\(\[]*)', bygroups(Keyword.Declaration, Text, Name.Function)),
            (r'(var|val)', Keyword.Declaration),
-           (r'(String|Char|Int|Float|Double|Boolean)', Keyword.Type),
+           (r'(String|Char|Int|Float|Double|Boolean)\b', Keyword.Type),
            (r'(boolean|byte|char|double|float|int|long|short|void)\b',
             Keyword.Type),
            (r'(true|false|null|\(\))\b', Keyword.Constant),
