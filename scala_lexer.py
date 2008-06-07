@@ -18,15 +18,14 @@ class ScalaLexer(RegexLexer):
            (r'//.*?\n', Comment),
            (r'/\*.*?\*/', Comment),
            (r'@[a-zA-Z_][a-zA-Z0-9_\.]*', Name.Decorator),
-           (r'(abstract|assert|break|case|catch|'
-            r'const|continue|default|do|else|enum|extends|final|'
-            r'finally|for|if|goto|implements|instanceof|'
-            r'native|new|package|private|protected|public|'
-            r'return|static|strictfp|super|switch|synchronized|this|'
-            r'throw|throws|transient|try|volatile|while|override|with)\b', Keyword),
+           (r'(abstract|case|catch|class|do|else|extends|false|final|'
+            r'finally|for|forSome|if|implicit|import|lazy|match|new|null|'
+            r'object|override|package|private|protected|requires|return|'
+            r'sealed|super|this|throw|trait|try|true|type|while|with|yield|'
+            r'_|:|=|=>|<-|<:|<%|>:|#|@)\b', Keyword),
            (r'(if|else|(else\s*if)|match|case)', Keyword),
-           (r'(def|var|val)', Keyword),
-           (r'(String|Char|Int)', Keyword.Type),
+           (r'(def|var|val)', Keyword.Declaration),
+           (r'(String|Char|Int|Float|Double|Boolean)', Keyword.Type),
            (r'(boolean|byte|char|double|float|int|long|short|void)\b',
             Keyword.Type),
            (r'(true|false|null|\(\))\b', Keyword.Constant),
@@ -37,10 +36,10 @@ class ScalaLexer(RegexLexer):
            (r'(\.)([a-zA-Z_][a-zA-Z0-9_]*)', bygroups(Operator, Name.Attribute)),
            (r'[a-zA-Z_][a-zA-Z0-9_]*:', Name.Label),
            (r'[a-zA-Z_\$][a-zA-Z0-9_]*', Name),
-           (r'[~\^\*!%&\[\]\(\)\{\}<>\|+=:;,./?-]', Operator),
+           #(r'[~\^\*!%&\[\]\(\)\{\}<>\|+=:;,./?-]', Operator),
            (r'[0-9][0-9]*\.[0-9]+([eE][0-9]+)?[fd]?', Number.Float),
            (r'0x[0-9a-f]+', Number.Hex),
-           (r'[0-9]+L?', Number.Integer),
+           (r'[0-9]+', Number.Integer),
            (r'\n', Text)
        ],
        'class': [
