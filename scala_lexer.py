@@ -9,11 +9,13 @@ class ScalaLexer(RegexLexer):
 
     tokens = {
        'root': [
+           # XXX: Method names are not this simple. This also highlights
+           # classes that have the unapply method to them. Removing for now.
            # method names
-           (r'^(\s*(?:[a-zA-Z_][a-zA-Z0-9_\.\[\]]*\s+)+?)' # return arguments
-            r'([a-zA-Z_][a-zA-Z0-9_]*)'                    # method name
-            r'(\s*)(\()',                                  # signature start
-            bygroups(using(this), Name.Function, Text, Operator)),
+           #(r'^(\s*(?:[a-zA-Z_][a-zA-Z0-9_\.\[\]]*\s+)+?)' # return arguments
+           # r'([a-zA-Z_][a-zA-Z0-9_]*)'                    # method name
+           # r'(\s*)(\()',                                  # signature start
+           # bygroups(using(this), Name.Function, Text, Operator)),
            (r'[^\S\n]+', Text),
            (r'//.*?\n', Comment),
            (r'/\*.*?\*/', Comment),
@@ -21,10 +23,10 @@ class ScalaLexer(RegexLexer):
            (r'(abstract|case|catch|class|do|else|extends|false|final|'
             r'finally|for|forSome|if|implicit|import|lazy|match|new|null|'
             r'object|override|package|private|protected|requires|return|'
-            r'sealed|super|this|throw|trait|try|true|type|while|with|yield|'
-            r'_|:|=|=>|<-|<:|<%|>:|#|@)\b', Keyword),
-           (r'(if|else|(else\s*if)|match|case)', Keyword),
-           (r'(def|var|val)', Keyword.Declaration),
+            r'sealed|super|this|throw|trait|try|true|type|while|with|'
+            r'yield)\b', Keyword),
+           (r'(def)(\s+)([^\s\b\(\[]*)', bygroups(Keyword.Declaration, Text, Name.Function)),
+           (r'(var|val)', Keyword.Declaration),
            (r'(String|Char|Int|Float|Double|Boolean)', Keyword.Type),
            (r'(boolean|byte|char|double|float|int|long|short|void)\b',
             Keyword.Type),
@@ -36,7 +38,7 @@ class ScalaLexer(RegexLexer):
            (r'(\.)([a-zA-Z_][a-zA-Z0-9_]*)', bygroups(Operator, Name.Attribute)),
            (r'[a-zA-Z_][a-zA-Z0-9_]*:', Name.Label),
            (r'[a-zA-Z_\$][a-zA-Z0-9_]*', Name),
-           #(r'[~\^\*!%&\[\]\(\)\{\}<>\|+=:;,./?-]', Operator),
+           (r'(=>|=|<-|<:|<%|>:|#|@|_|:)', Operator),
            (r'[0-9][0-9]*\.[0-9]+([eE][0-9]+)?[fd]?', Number.Float),
            (r'0x[0-9a-f]+', Number.Hex),
            (r'[0-9]+', Number.Integer),
