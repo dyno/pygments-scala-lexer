@@ -9,17 +9,9 @@ class ScalaLexer(RegexLexer):
 
     tokens = {
        'root': [
-           # XXX: Method names are not this simple. This also highlights
-           # classes that have the unapply method to them. Removing for now.
-           # method names
-           #(r'^(\s*(?:[a-zA-Z_][a-zA-Z0-9_\.\[\]]*\s+)+?)' # return arguments
-           # r'([a-zA-Z_][a-zA-Z0-9_]*)'                    # method name
-           # r'(\s*)(\()',                                  # signature start
-           # bygroups(using(this), Name.Function, Text, Operator)),
            (r'[^\S\n]+', Text),
            (r'//.*?\n', Comment),
            (r'/\*.*?\*/', Comment),
-           (r'@[a-zA-Z_][a-zA-Z0-9_\.]*', Name.Decorator),
            (r'(abstract|case|catch|class|do|else|extends|false|final|'
             r'finally|for|forSome|if|implicit|import|lazy|match|new|null|'
             r'object|override|package|private|protected|requires|return|'
@@ -42,7 +34,7 @@ class ScalaLexer(RegexLexer):
            (r'[0-9][0-9]*\.[0-9]+([eE][0-9]+)?[fd]?', Number.Float),
            (r'0x[0-9a-f]+', Number.Hex),
            (r'[0-9]+', Number.Integer),
-           (r'\n', Text)
+           (r'.', Text)
        ],
        'class': [
            (r'[a-zA-Z_][a-zA-Z0-9_]*', Name.Class, '#pop')
